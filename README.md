@@ -6,19 +6,43 @@ Ruby client library for the Starter League Portal API
 
 Add this line to your application's Gemfile:
 
-    gem 'portal_client'
+    gem 'portal_client', :git => 'git://github.com/starterleague/portal_client.git'
 
 And then execute:
 
     $ bundle
 
-Or install it yourself as:
-
-    $ gem install portal_client
-
 ## Usage
 
-TODO: Write usage instructions here
+Configure the client with your OAuth `APP_ID` and `SECRET`
+
+    PortalClient.configure do |config|
+      config.app_id   = APP_ID
+      config.secret   = SECRET
+    end
+
+Then, create a client instance with an authorized user's `ACCESS_TOKEN`
+
+    @client = PortalClient::Client.new(ACCESS_TOKEN)
+
+Now, you can make calls to the API thru your client instance
+
+### Get All Courses
+
+    courses = @client.courses
+
+### Get One Course
+
+    course = @client.course(COURSE_ID)
+
+### Get Enrollments
+
+    enrollments = @client.enrollments(COURSE_ID)
+
+### Get Current User
+
+    current_user = @client.users.current_user
+
 
 ## Contributing
 
