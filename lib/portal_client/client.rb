@@ -1,6 +1,8 @@
 module PortalClient
   class Client
     include PortalClient::Request
+    include PortalClient::Years
+    include PortalClient::Quarters
     include PortalClient::Courses
     include PortalClient::Users
 

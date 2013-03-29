@@ -27,21 +27,34 @@ Then, create a client instance with an authorized user's `ACCESS_TOKEN`
 
 Now, you can make calls to the API thru your client instance
 
-### Get All Courses
+### Years
+
+    years = @client.years
+
+  or
+
+    year = @client.year(2012)
+
+### Quarters
+
+    quarters = @client.quarters
+
+  or
+
+    quarter = @client.quarter(QUARTER_ID)
+
+### Courses
 
     courses = @client.courses
 
-### Get One Course
+  or
 
     course = @client.course(COURSE_ID)
 
-### Get Enrollments
 
-    enrollments = @client.enrollments(COURSE_ID)
+### Current User
 
-### Get Current User
-
-    current_user = @client.users.current_user
+    user = @client.users.current_user
 
 
 ## Contributing
