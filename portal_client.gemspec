@@ -10,6 +10,7 @@ Gem::Specification.new do |gem|
   gem.add_dependency "oauth2"
   gem.add_dependency "hashie"
   gem.add_development_dependency "rspec"
+  gem.add_development_dependency "dotenv"
 
   gem.files         = `git ls-files`.split($\)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
