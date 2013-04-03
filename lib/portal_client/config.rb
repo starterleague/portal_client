@@ -11,7 +11,7 @@ module PortalClient
     end
 
     def caching?
-      !!self.config.cache_store
+      !self.config.cache_store.nil? && self.config.cache_store != ''
     end
 
     def configure
