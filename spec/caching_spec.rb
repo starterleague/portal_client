@@ -11,6 +11,20 @@ describe "Caching" do
     PortalClient.config.cache_store = nil
   end
 
+  describe "PortalClient.caching?" do
+    it "returns false if the cache_store config key is not set" do
+      PortalClient.should_not be_caching
+    end
+
+    context "when the cache_store config key is set" do
+      it "returns true if it responds_to :fetch, :read and :write" do
+        cache_store = mock('store', :fetch => true, :read => true, :write => true)
+        PortalClient.config.cache_store = cache_store
+        PortalClient.should be_caching
+      end
+    end
+  end
+
   describe "#response" do
     it "calls fetch on the cache_store" do
       PortalClient.config.cache_store = cache_store

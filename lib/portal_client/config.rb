@@ -11,7 +11,12 @@ module PortalClient
     end
 
     def caching?
-      !self.config.cache_store.nil? && self.config.cache_store != ''
+      store = self.config.cache_store
+
+      store &&
+        store.respond_to?(:fetch) &&
+        store.respond_to?(:read) &&
+        store.respond_to?(:write)
     end
 
     def configure
