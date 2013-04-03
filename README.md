@@ -19,7 +19,11 @@ Configure the client with your OAuth `APP_ID` and `SECRET`
     PortalClient.configure do |config|
       config.app_id   = APP_ID
       config.secret   = SECRET
+      config.cache_store = Rails.cache
     end
+    
+Note the optional `cache_store` config option. You can pass a reference
+to any ActiveSupport::Cache compatible cache store.
 
 Then, create a client instance with an authorized user's `ACCESS_TOKEN`
 
