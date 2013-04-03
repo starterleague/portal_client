@@ -24,7 +24,20 @@ module PortalClient
 
     def response(method, path, options = {})
       request_path = PortalClient.config.base_uri + path
-      response_to_mash(@client.request(method, request_path, options))
+        
+      if PortalClient.caching?
+        options[:cache] ||= {}
+        cache_options = options.delete(:cache)
+        cache_options.reverse_merge!({:expires_in => 1.day})
+
+        key = [URI(request_path).path, options]
+
+        PortalClient.config.cache_store.fetch(key, cache_options) do
+          get_response(method, request_path, options)
+        end
+      else
+        get_response(method, request_path, options)
+      end
     end
 
     def response_to_mash(response)
@@ -33,6 +46,10 @@ module PortalClient
       else
         Hashie::Mash.new {}
       end
+    end
+
+    def get_response(method, path, options = {})
+      response_to_mash(@client.request(method, path, options))
     end
   end
 end

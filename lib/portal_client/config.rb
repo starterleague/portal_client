@@ -10,6 +10,15 @@ module PortalClient
       self.configuration = PortalClient::Configuration.new
     end
 
+    def caching?
+      store = self.config.cache_store
+
+      store &&
+        store.respond_to?(:fetch) &&
+        store.respond_to?(:read) &&
+        store.respond_to?(:write)
+    end
+
     def configure
       yield(config)
     end
@@ -18,7 +27,7 @@ end
 
 module PortalClient
   class Configuration
-    attr_accessor :app_id, :secret, :base_uri, :oauth_client
+    attr_accessor :app_id, :secret, :base_uri, :oauth_client, :cache_store
 
     def base_uri
       @base_uri || 'http://portal.starterleague.com/api/v1'
